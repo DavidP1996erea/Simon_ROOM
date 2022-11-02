@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.widget.ImageView
+import androidx.appcompat.app.AlertDialog
 import java.lang.reflect.Array
 
 class MainActivity : AppCompatActivity(), comunicador {
@@ -18,6 +20,8 @@ class MainActivity : AppCompatActivity(), comunicador {
     }
 
 
+    var listaMaquina = ArrayList<ImageView>()
+    var listaJugador = ArrayList<ImageView>()
 
     fun generarImagenAleatoria() : ImageView{
         var listaFotosJuego = arrayOf(
@@ -40,19 +44,19 @@ class MainActivity : AppCompatActivity(), comunicador {
         when (imagenAleatoria) {
             imagenAmarilla -> {
 
-                jugarParteAmarilla()
+                jugarParteAmarillaMaquina()
             }
             imagenVerde -> {
 
-                jugarParteVerde()
+                jugarParteVerdeMaquina()
             }
             imagenRoja -> {
 
-                jugarParteRoja()
+                jugarParteRojaMaquina()
             }
             imagenAzul -> {
 
-                jugarParteAzul()
+                jugarParteAzulMaquina()
             }
         }
     }
@@ -71,8 +75,75 @@ class MainActivity : AppCompatActivity(), comunicador {
             },
             2000 // value in milliseconds
         )
+        listaJugador.add(imagenAmarilla)
+
+        if(listaMaquina.size==listaJugador.size){
+            comprobarListas()
+        }
+
     }
 
+     fun jugarParteAmarillaMaquina() {
+
+        var imagenAmarilla = findViewById<ImageView>(R.id.parteAmarillaColor)
+
+        imagenAmarilla.setImageResource(R.drawable.parteamarillapulsada)
+
+        Handler(Looper.getMainLooper()).postDelayed(
+            {
+
+                imagenAmarilla.setImageResource(R.drawable.parteamarilla)
+            },
+            2000 // value in milliseconds
+        )
+
+    }
+
+    fun jugarParteRojaMaquina() {
+
+        var imagenRoja = findViewById<ImageView>(R.id.parteRojaColor)
+
+        imagenRoja.setImageResource(R.drawable.parterojapulsada)
+
+        Handler(Looper.getMainLooper()).postDelayed(
+            {
+
+                imagenRoja.setImageResource(R.drawable.parteroja)
+            },
+            2000 // value in milliseconds
+        )
+
+    }
+    fun jugarParteAzulMaquina() {
+
+        var imagenAzul = findViewById<ImageView>(R.id.parteAzulColor)
+
+        imagenAzul.setImageResource(R.drawable.parteazulpulsada)
+
+        Handler(Looper.getMainLooper()).postDelayed(
+            {
+
+                imagenAzul.setImageResource(R.drawable.parteazul)
+            },
+            2000 // value in milliseconds
+        )
+
+    }
+    fun jugarParteVerdeMaquina() {
+
+        var imagenVerde = findViewById<ImageView>(R.id.parteVerdeColor)
+
+        imagenVerde.setImageResource(R.drawable.parteverdepulsada)
+
+        Handler(Looper.getMainLooper()).postDelayed(
+            {
+
+                imagenVerde.setImageResource(R.drawable.parteverde)
+            },
+            2000 // value in milliseconds
+        )
+
+    }
 
     override fun jugarParteVerde() {
 
@@ -89,6 +160,12 @@ class MainActivity : AppCompatActivity(), comunicador {
             2000 // value in milliseconds
         )
 
+        listaJugador.add(imagenVerde)
+
+        if(listaMaquina.size==listaJugador.size){
+            comprobarListas()
+        }
+
 
     }
 
@@ -104,6 +181,11 @@ class MainActivity : AppCompatActivity(), comunicador {
             2000 // value in milliseconds
         )
 
+        listaJugador.add(imagenAzul)
+
+        if(listaMaquina.size==listaJugador.size){
+            comprobarListas()
+        }
 
     }
 
@@ -119,16 +201,58 @@ class MainActivity : AppCompatActivity(), comunicador {
             2000 // value in milliseconds
         )
 
+        listaJugador.add(imagenRoja)
+
+        if(listaMaquina.size==listaJugador.size){
+            comprobarListas()
+        }
 
     }
 
+
     override fun empezarRonda() {
 
-        var imagen = generarImagenAleatoria()
 
-        iluminarBoton(imagen)
+        var imagenAleatoria = generarImagenAleatoria()
+        listaJugador.clear()
+        listaMaquina.add(imagenAleatoria)
 
 
+
+
+        listaMaquina.forEach {
+                 iluminarBoton(it)
+        }
+
+
+    }
+
+
+
+
+    fun comprobarListas(){
+
+
+        if(listaMaquina==listaJugador) {
+
+            empezarRonda()
+        }else{
+            mensajeDerrota().show()
+        }
+
+
+    }
+
+    fun mensajeDerrota(): AlertDialog {
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Has perdido...😦😵!")
+        builder.setMessage("Has perdido ante la máquina, adiós")
+        builder.setPositiveButton("Aceptar", null)
+
+        val mostrarVictoria = builder.create()
+
+        return mostrarVictoria
     }
 
 

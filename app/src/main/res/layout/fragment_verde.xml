@@ -17,6 +17,22 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="255dp"
         android:clickable="true"
-        android:src="@drawable/parteverde" />
+        android:src="@drawable/parteverde"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="200dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rondas ganadas: " />
+
+    <TextView
+        android:id="@+id/contadorRondas"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="200dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0 " />
 
 </FrameLayout>

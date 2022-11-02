@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import java.lang.reflect.Array
 
@@ -35,7 +36,7 @@ class MainActivity : AppCompatActivity(), comunicador {
         return listaFotosJuego[(0..3).random()]
 
     }
-
+    var contadorRondas =0
 
     fun iluminarBoton(imagenAleatoria:ImageView){
 
@@ -65,31 +66,7 @@ class MainActivity : AppCompatActivity(), comunicador {
     }
 
 
-    override fun jugarParteAmarilla() {
 
-        var imagenAmarilla = findViewById<ImageView>(R.id.parteAmarillaColor)
-
-        imagenAmarilla.setImageResource(R.drawable.parteamarillapulsada)
-
-        Handler(Looper.getMainLooper()).postDelayed(
-            {
-                imagenAmarilla.setImageResource(R.drawable.parteamarilla)
-            },
-            500  )
-        listaJugador.add(imagenAmarilla)
-
-
-            if (listaMaquina.size == listaJugador.size) {
-                Handler(Looper.getMainLooper()).postDelayed(
-                    {
-                        comprobarListas()
-                    },
-                    2000  )
-            }
-
-
-
-    }
 
      fun jugarParteAmarillaMaquina() {
 
@@ -153,6 +130,31 @@ class MainActivity : AppCompatActivity(), comunicador {
 
     }
 
+    override fun jugarParteAmarilla() {
+
+        var imagenAmarilla = findViewById<ImageView>(R.id.parteAmarillaColor)
+
+        imagenAmarilla.setImageResource(R.drawable.parteamarillapulsada)
+
+        Handler(Looper.getMainLooper()).postDelayed(
+            {
+                imagenAmarilla.setImageResource(R.drawable.parteamarilla)
+            },
+            500  )
+        listaJugador.add(imagenAmarilla)
+
+
+        if (listaMaquina.size == listaJugador.size) {
+            Handler(Looper.getMainLooper()).postDelayed(
+                {
+                    comprobarListas()
+                },
+                2000  )
+        }
+
+
+
+    }
     override fun jugarParteVerde() {
 
         var imagenVerde = findViewById<ImageView>(R.id.parteVerdeColor)
@@ -263,16 +265,21 @@ class MainActivity : AppCompatActivity(), comunicador {
 
     fun comprobarListas(){
 
+        var textoContador = findViewById<TextView>(R.id.contadorRondas)
+
 
         if(listaMaquina==listaJugador) {
-
+            contadorRondas++;
+            textoContador.text = contadorRondas.toString()
             empezarRonda()
+
         }else{
             mensajeDerrota().show()
             var botonComenzar = findViewById<Button>(R.id.empezarPartida)
 
             botonComenzar.visibility = View.VISIBLE
             listaMaquina.clear()
+            textoContador.text ="0"
         }
 
 

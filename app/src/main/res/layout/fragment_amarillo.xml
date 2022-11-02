@@ -15,7 +15,8 @@
         android:layout_marginStart="31dp"
         android:layout_marginTop="-10dp"
         android:clickable="true"
-        android:src="@drawable/parteamarilla" />
+        android:src="@drawable/parteamarilla"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/empezarPartida"

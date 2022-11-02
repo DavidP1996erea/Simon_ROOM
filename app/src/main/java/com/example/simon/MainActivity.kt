@@ -1,10 +1,13 @@
 package com.example.simon
 
+import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import java.lang.reflect.Array
@@ -68,11 +71,11 @@ class MainActivity : AppCompatActivity(), comunicador {
 
         imagenAmarilla.setImageResource(R.drawable.parteamarillapulsada)
 
-        Thread {
-
-            Thread.sleep(500)
+        Handler(Looper.getMainLooper()).postDelayed(
+            {
                 imagenAmarilla.setImageResource(R.drawable.parteamarilla)
-
+            },
+            500  )
         listaJugador.add(imagenAmarilla)
 
 
@@ -83,7 +86,7 @@ class MainActivity : AppCompatActivity(), comunicador {
                     },
                     2000  )
             }
-        }.start()
+
 
 
     }
@@ -157,12 +160,11 @@ class MainActivity : AppCompatActivity(), comunicador {
 
         imagenVerde.setImageResource(R.drawable.parteverdepulsada)
 
-        Thread {
-
-            Thread.sleep(500)
-
+        Handler(Looper.getMainLooper()).postDelayed(
+            {
             imagenVerde.setImageResource(R.drawable.parteverde)
-
+            },
+            500  )
 
             listaJugador.add(imagenVerde)
 
@@ -176,7 +178,7 @@ class MainActivity : AppCompatActivity(), comunicador {
                     },
                     2000  )
             }
-        }.start()
+
 
 
 
@@ -188,11 +190,11 @@ class MainActivity : AppCompatActivity(), comunicador {
         imagenAzul.setImageResource(R.drawable.parteazulpulsada)
 
 
-        Thread {
-
-            Thread.sleep(500)
+        Handler(Looper.getMainLooper()).postDelayed(
+            {
             imagenAzul.setImageResource(R.drawable.parteazul)
-
+            },
+            500  )
 
             listaJugador.add(imagenAzul)
 
@@ -204,7 +206,7 @@ class MainActivity : AppCompatActivity(), comunicador {
                     },
                     2000  )
             }
-        }.start()
+
 
 
     }
@@ -214,13 +216,12 @@ class MainActivity : AppCompatActivity(), comunicador {
 
         imagenRoja.setImageResource(R.drawable.parterojapulsada)
 
-        Thread {
-
-            Thread.sleep(500)
-
+        Handler(Looper.getMainLooper()).postDelayed(
+            {
             imagenRoja.setImageResource(R.drawable.parteroja)
 
-
+            },
+            500  )
         listaJugador.add(imagenRoja)
 
 
@@ -231,7 +232,7 @@ class MainActivity : AppCompatActivity(), comunicador {
                     },
                     2000  )
             }
-        }.start()
+
 
 
     }
@@ -239,6 +240,9 @@ class MainActivity : AppCompatActivity(), comunicador {
 
     override fun empezarRonda() {
 
+        var botonComenzar = findViewById<Button>(R.id.empezarPartida)
+
+        botonComenzar.visibility = View.GONE
 
         var imagenAleatoria = generarImagenAleatoria()
         listaJugador.clear()
@@ -265,6 +269,10 @@ class MainActivity : AppCompatActivity(), comunicador {
             empezarRonda()
         }else{
             mensajeDerrota().show()
+            var botonComenzar = findViewById<Button>(R.id.empezarPartida)
+
+            botonComenzar.visibility = View.VISIBLE
+            listaMaquina.clear()
         }
 
 

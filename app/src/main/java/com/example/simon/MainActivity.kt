@@ -77,8 +77,11 @@ class MainActivity : AppCompatActivity(), comunicador {
 
 
             if (listaMaquina.size == listaJugador.size) {
-                Thread.sleep(1000)
-                comprobarListas()
+                Handler(Looper.getMainLooper()).postDelayed(
+                    {
+                        comprobarListas()
+                    },
+                    2000  )
             }
         }.start()
 
@@ -165,9 +168,13 @@ class MainActivity : AppCompatActivity(), comunicador {
 
 
 
+
             if (listaMaquina.size == listaJugador.size) {
-                Thread.sleep(1000)
+                Handler(Looper.getMainLooper()).postDelayed(
+                    {
                 comprobarListas()
+                    },
+                    2000  )
             }
         }.start()
 
@@ -191,8 +198,11 @@ class MainActivity : AppCompatActivity(), comunicador {
 
 
             if (listaMaquina.size == listaJugador.size) {
-                Thread.sleep(1000)
-                comprobarListas()
+                Handler(Looper.getMainLooper()).postDelayed(
+                    {
+                        comprobarListas()
+                    },
+                    2000  )
             }
         }.start()
 
@@ -215,8 +225,11 @@ class MainActivity : AppCompatActivity(), comunicador {
 
 
             if (listaMaquina.size == listaJugador.size) {
-                Thread.sleep(1000)
-                comprobarListas()
+                Handler(Looper.getMainLooper()).postDelayed(
+                    {
+                        comprobarListas()
+                    },
+                    2000  )
             }
         }.start()
 

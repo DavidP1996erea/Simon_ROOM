@@ -68,18 +68,20 @@ class MainActivity : AppCompatActivity(), comunicador {
 
         imagenAmarilla.setImageResource(R.drawable.parteamarillapulsada)
 
-        Handler(Looper.getMainLooper()).postDelayed(
-            {
+        Thread {
 
+            Thread.sleep(500)
                 imagenAmarilla.setImageResource(R.drawable.parteamarilla)
-            },
-            2000 // value in milliseconds
-        )
+
         listaJugador.add(imagenAmarilla)
 
-        if(listaMaquina.size==listaJugador.size){
-            comprobarListas()
-        }
+
+            if (listaMaquina.size == listaJugador.size) {
+                Thread.sleep(1000)
+                comprobarListas()
+            }
+        }.start()
+
 
     }
 
@@ -152,19 +154,23 @@ class MainActivity : AppCompatActivity(), comunicador {
 
         imagenVerde.setImageResource(R.drawable.parteverdepulsada)
 
-        Handler(Looper.getMainLooper()).postDelayed(
-            {
+        Thread {
 
-                imagenVerde.setImageResource(R.drawable.parteverde)
-            },
-            2000 // value in milliseconds
-        )
+            Thread.sleep(500)
 
-        listaJugador.add(imagenVerde)
+            imagenVerde.setImageResource(R.drawable.parteverde)
 
-        if(listaMaquina.size==listaJugador.size){
-            comprobarListas()
-        }
+
+            listaJugador.add(imagenVerde)
+
+
+
+            if (listaMaquina.size == listaJugador.size) {
+                Thread.sleep(1000)
+                comprobarListas()
+            }
+        }.start()
+
 
 
     }
@@ -173,19 +179,23 @@ class MainActivity : AppCompatActivity(), comunicador {
         var imagenAzul = findViewById<ImageView>(R.id.parteAzulColor)
 
         imagenAzul.setImageResource(R.drawable.parteazulpulsada)
-        Handler(Looper.getMainLooper()).postDelayed(
-            {
 
-                imagenAzul.setImageResource(R.drawable.parteazul)
-            },
-            2000 // value in milliseconds
-        )
 
-        listaJugador.add(imagenAzul)
+        Thread {
 
-        if(listaMaquina.size==listaJugador.size){
-            comprobarListas()
-        }
+            Thread.sleep(500)
+            imagenAzul.setImageResource(R.drawable.parteazul)
+
+
+            listaJugador.add(imagenAzul)
+
+
+            if (listaMaquina.size == listaJugador.size) {
+                Thread.sleep(1000)
+                comprobarListas()
+            }
+        }.start()
+
 
     }
 
@@ -193,19 +203,23 @@ class MainActivity : AppCompatActivity(), comunicador {
         var imagenRoja = findViewById<ImageView>(R.id.parteRojaColor)
 
         imagenRoja.setImageResource(R.drawable.parterojapulsada)
-        Handler(Looper.getMainLooper()).postDelayed(
-            {
 
-                imagenRoja.setImageResource(R.drawable.parteroja)
-            },
-            2000 // value in milliseconds
-        )
+        Thread {
+
+            Thread.sleep(500)
+
+            imagenRoja.setImageResource(R.drawable.parteroja)
+
 
         listaJugador.add(imagenRoja)
 
-        if(listaMaquina.size==listaJugador.size){
-            comprobarListas()
-        }
+
+            if (listaMaquina.size == listaJugador.size) {
+                Thread.sleep(1000)
+                comprobarListas()
+            }
+        }.start()
+
 
     }
 
@@ -218,12 +232,12 @@ class MainActivity : AppCompatActivity(), comunicador {
         listaMaquina.add(imagenAleatoria)
 
 
-
-
-        listaMaquina.forEach {
-                 iluminarBoton(it)
-        }
-
+        Thread {
+            listaMaquina.forEach {
+                iluminarBoton(it)
+                Thread.sleep(2000)
+            }
+        }.start()
 
     }
 

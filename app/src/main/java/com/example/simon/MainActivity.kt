@@ -24,9 +24,25 @@ class MainActivity : AppCompatActivity(), comunicador {
     }
 
 
+    /**
+     * Se crean las listas necesarias para guardar las imagenes, tanto las del jugador como
+     * el de la máquina
+     */
     var listaMaquina = ArrayList<ImageView>()
     var listaJugador = ArrayList<ImageView>()
 
+    /**
+     * Se crea un contador que controlará las partidas que el usuario ha ganado
+     */
+    var contadorRondas =0
+
+
+    /**
+     * En este método se crea un array de las imagenes con los diferentes colores, y retorna
+     * una de ellas aleatoriamente
+     *
+     * Poscondición: Devuelve una variable tipo Image aleatoria del array
+     */
     fun generarImagenAleatoria() : ImageView{
         var listaFotosJuego = arrayOf(
             findViewById<ImageView>(R.id.parteRojaColor), findViewById(R.id.parteVerdeColor),
@@ -36,7 +52,18 @@ class MainActivity : AppCompatActivity(), comunicador {
         return listaFotosJuego[(0..3).random()]
 
     }
-    var contadorRondas =0
+
+
+    /**
+     * Con este método se iluminan las imagenes, que en este caso sería cambiar la dirección
+     * Drawable por otra imagen ilumininada. Primero se crean 4 variables con cada una de
+     * las imagenes, luego se crea un switch que tiene como parámetro una imagen
+     * que se obtiene como parámetro del método. Dependiendo de que imagen sea llamará a un
+     * método u otro que iluminará la imagen correspondiente.
+     *
+     * Precondición: Se requiere un variable de tipo Image
+     * Poscondición: La imagen llamará al método correspondiente
+     */
 
     fun iluminarBoton(imagenAleatoria:ImageView){
 
@@ -65,9 +92,15 @@ class MainActivity : AppCompatActivity(), comunicador {
         }
     }
 
-
-
-
+        // Parte de la máquina:
+    /**
+     * Primero se crearán 4 métodos correspondientes a la máquina, cuando sea el turno de la
+     * máquina llamará a uno de los 4 métodos siguientes, iluminando la imagen que haya tocado
+     * en el random. Para que el cambio de imagen sea visible, se deja un delay entre el cambio
+     * de imagen iluminada y la vuelta a la original. Para todo esto, se crea una variable
+     * con la imagen necesaria, y luego se cambia la imagen raiz por la iluminada. Por último,
+     * tras el delay se vuelve a cambiar a la imagen original
+     */
      fun jugarParteAmarillaMaquina() {
 
         var imagenAmarilla = findViewById<ImageView>(R.id.parteAmarillaColor)
@@ -79,11 +112,13 @@ class MainActivity : AppCompatActivity(), comunicador {
 
                 imagenAmarilla.setImageResource(R.drawable.parteamarilla)
             },
-            2000 // value in milliseconds
-        )
+            2000 )
 
     }
 
+    /**
+     * Igual que el método anterior pero con la imagen roja
+     */
     fun jugarParteRojaMaquina() {
 
         var imagenRoja = findViewById<ImageView>(R.id.parteRojaColor)
@@ -95,10 +130,13 @@ class MainActivity : AppCompatActivity(), comunicador {
 
                 imagenRoja.setImageResource(R.drawable.parteroja)
             },
-            2000 // value in milliseconds
-        )
+            2000)
 
     }
+
+    /**
+     * Igual que el método anterior pero con la imagen azul
+     */
     fun jugarParteAzulMaquina() {
 
         var imagenAzul = findViewById<ImageView>(R.id.parteAzulColor)
@@ -110,10 +148,13 @@ class MainActivity : AppCompatActivity(), comunicador {
 
                 imagenAzul.setImageResource(R.drawable.parteazul)
             },
-            2000 // value in milliseconds
-        )
+            2000 )
 
     }
+
+    /**
+     * Igual que el método anterior pero con la imagen verde
+     */
     fun jugarParteVerdeMaquina() {
 
         var imagenVerde = findViewById<ImageView>(R.id.parteVerdeColor)
@@ -125,11 +166,20 @@ class MainActivity : AppCompatActivity(), comunicador {
 
                 imagenVerde.setImageResource(R.drawable.parteverde)
             },
-            2000 // value in milliseconds
-        )
+            2000 )
 
     }
 
+      // Parte del jugador:
+
+    /**
+     * Igual que los método anteriores, pero se activan cuando el usuario presiona las imagenes.
+     * Cada vez que se entra en uno de los 4 métodos siguientes, la imagen que se ha seleccionado
+     * se mete en la lista del jugador. Tras introducirlo en la lista, se comprueba que
+     * las listas tienen la misma longitud, en caso de que esto ocurra, significa que el usuario
+     * ha intentado seguir la secuencia de la máquina, por lo que llama a un método que comprueba
+     * que ambas listas son iguales, lo que significaría que el usuario pasa de ronda.
+     */
     override fun jugarParteAmarilla() {
 
         var imagenAmarilla = findViewById<ImageView>(R.id.parteAmarillaColor)
@@ -141,8 +191,12 @@ class MainActivity : AppCompatActivity(), comunicador {
                 imagenAmarilla.setImageResource(R.drawable.parteamarilla)
             },
             500  )
+
         listaJugador.add(imagenAmarilla)
 
+        /**
+         * LLamada al método de comprobar que las listas son iguales
+         */
 
         if (listaMaquina.size == listaJugador.size) {
             Handler(Looper.getMainLooper()).postDelayed(
@@ -152,9 +206,11 @@ class MainActivity : AppCompatActivity(), comunicador {
                 2000  )
         }
 
-
-
     }
+
+    /**
+     * Lo mismo que el anterior pero con la imagen verde
+     */
     override fun jugarParteVerde() {
 
         var imagenVerde = findViewById<ImageView>(R.id.parteVerdeColor)
@@ -164,27 +220,25 @@ class MainActivity : AppCompatActivity(), comunicador {
 
         Handler(Looper.getMainLooper()).postDelayed(
             {
-            imagenVerde.setImageResource(R.drawable.parteverde)
+                imagenVerde.setImageResource(R.drawable.parteverde)
             },
-            500  )
+            500 )
 
-            listaJugador.add(imagenVerde)
-
-
+        listaJugador.add(imagenVerde)
 
 
-            if (listaMaquina.size == listaJugador.size) {
-                Handler(Looper.getMainLooper()).postDelayed(
-                    {
-                comprobarListas()
-                    },
-                    2000  )
-            }
-
-
-
-
+        if (listaMaquina.size == listaJugador.size) {
+            Handler(Looper.getMainLooper()).postDelayed(
+                {
+                    comprobarListas()
+                },
+                2000 )
+        }
     }
+
+    /**
+     * Lo mismo que el anterior pero con la imagen azul
+     */
 
     override fun jugarParteAzul() {
         var imagenAzul = findViewById<ImageView>(R.id.parteAzulColor)
@@ -208,10 +262,11 @@ class MainActivity : AppCompatActivity(), comunicador {
                     },
                     2000  )
             }
-
-
-
     }
+
+    /**
+     * Lo mismo que el anterior pero con la imagen roja
+     */
 
     override fun jugarParteRoja() {
         var imagenRoja = findViewById<ImageView>(R.id.parteRojaColor)
@@ -234,12 +289,21 @@ class MainActivity : AppCompatActivity(), comunicador {
                     },
                     2000  )
             }
-
-
-
     }
 
 
+    /**
+     * Este método se activa cuando se pulsa el botón de comenzar partida. Lo primero que se hace
+     * es retirar el botón, luego se guarda en una variable uno de las imagenes aleatorias,
+     * esto se consigue llamando al método explicado anteriormente. Luego se vacía la lista
+     * del jugador, para que en cada ronda el usuario deba meter la secuencia completa. También
+     * se añade en la lista de la máquina, la imagen generada aleatoriamente. Por último, se
+     * crea un foreach que recorre la lista de la máquina, que iluminará cada una de las imagenes
+     * para que el usuario sepa que secuencia debe seguir. Se deja un tiempo entre iteración para
+     * que sea perceptible, tambien antes de la iteración para que en caso de que toque la misma
+     * imagen dos veces, se vea visualmente como se apaga y se enciende dos veces, y no que se
+     * quede encendida el doble de tiempo.
+     */
     override fun empezarRonda() {
 
         var botonComenzar = findViewById<Button>(R.id.empezarPartida)
@@ -253,6 +317,7 @@ class MainActivity : AppCompatActivity(), comunicador {
 
         Thread {
             listaMaquina.forEach {
+                Thread.sleep(2000)
                 iluminarBoton(it)
                 Thread.sleep(2000)
             }
@@ -260,8 +325,18 @@ class MainActivity : AppCompatActivity(), comunicador {
 
     }
 
-
-
+    /**
+     * Este método es llamado cada  vez que el usuario pulsa una imagen y ambas listas tienen
+     * el mismo tamaño. Si ambas listas son iguales significa que el usuario introdució
+     * la secuencia correcta, por lo que el contador de rondas aumenta en 1, el texto
+     * se cambia para mostrar las rondas ganadas, y se vuelve a llamar al método
+     * empezarRonda, ya que ha ganado y todo vuelve a empezar.
+     *
+     * En caso de que ambas listas no son iguales, se muestra un mensaje de derrota en pantalla, el
+     * botón de empezar partida vuelve a aparecer para que se pueda volver a jugar, también
+     * se vacía la lista de la máquina, ya que es una ronda completamente nueva, al igual que se
+     * reinicia el contador de rondas ganadas.
+     */
 
     fun comprobarListas(){
 
@@ -279,11 +354,16 @@ class MainActivity : AppCompatActivity(), comunicador {
 
             botonComenzar.visibility = View.VISIBLE
             listaMaquina.clear()
-            textoContador.text ="0"
+            contadorRondas =0
+            textoContador.text = contadorRondas.toString()
         }
 
 
     }
+
+    /**
+     * Mensaje de derrota
+     */
 
     fun mensajeDerrota(): AlertDialog {
 

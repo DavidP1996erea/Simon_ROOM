@@ -1,5 +1,6 @@
 package com.example.simon
 
+import android.media.MediaPlayer
 import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -102,6 +103,8 @@ class MainActivity : AppCompatActivity(), comunicador {
      * tras el delay se vuelve a cambiar a la imagen original
      */
      fun jugarParteAmarillaMaquina() {
+        var player= MediaPlayer.create(this,R.raw.segundosonido)
+        player.start()
 
         var imagenAmarilla = findViewById<ImageView>(R.id.parteAmarillaColor)
 
@@ -112,7 +115,7 @@ class MainActivity : AppCompatActivity(), comunicador {
 
                 imagenAmarilla.setImageResource(R.drawable.parteamarilla)
             },
-            2000 )
+            800 )
 
     }
 
@@ -122,15 +125,17 @@ class MainActivity : AppCompatActivity(), comunicador {
     fun jugarParteRojaMaquina() {
 
         var imagenRoja = findViewById<ImageView>(R.id.parteRojaColor)
-
+        var player= MediaPlayer.create(this,R.raw.primersonido)
+        player.start()
         imagenRoja.setImageResource(R.drawable.parterojapulsada)
+
 
         Handler(Looper.getMainLooper()).postDelayed(
             {
 
                 imagenRoja.setImageResource(R.drawable.parteroja)
             },
-            2000)
+            800)
 
     }
 
@@ -140,7 +145,8 @@ class MainActivity : AppCompatActivity(), comunicador {
     fun jugarParteAzulMaquina() {
 
         var imagenAzul = findViewById<ImageView>(R.id.parteAzulColor)
-
+        var player= MediaPlayer.create(this,R.raw.tercersonido)
+        player.start()
         imagenAzul.setImageResource(R.drawable.parteazulpulsada)
 
         Handler(Looper.getMainLooper()).postDelayed(
@@ -148,7 +154,7 @@ class MainActivity : AppCompatActivity(), comunicador {
 
                 imagenAzul.setImageResource(R.drawable.parteazul)
             },
-            2000 )
+            800 )
 
     }
 
@@ -158,7 +164,8 @@ class MainActivity : AppCompatActivity(), comunicador {
     fun jugarParteVerdeMaquina() {
 
         var imagenVerde = findViewById<ImageView>(R.id.parteVerdeColor)
-
+        var player= MediaPlayer.create(this,R.raw.cuartosonido)
+        player.start()
         imagenVerde.setImageResource(R.drawable.parteverdepulsada)
 
         Handler(Looper.getMainLooper()).postDelayed(
@@ -166,7 +173,7 @@ class MainActivity : AppCompatActivity(), comunicador {
 
                 imagenVerde.setImageResource(R.drawable.parteverde)
             },
-            2000 )
+            800 )
 
     }
 
@@ -183,6 +190,7 @@ class MainActivity : AppCompatActivity(), comunicador {
     override fun jugarParteAmarilla() {
 
         var imagenAmarilla = findViewById<ImageView>(R.id.parteAmarillaColor)
+        var player= MediaPlayer.create(this,R.raw.segundosonido)
 
         imagenAmarilla.setImageResource(R.drawable.parteamarillapulsada)
 
@@ -197,13 +205,14 @@ class MainActivity : AppCompatActivity(), comunicador {
         /**
          * LLamada al método de comprobar que las listas son iguales
          */
+        player.start()
 
         if (listaMaquina.size == listaJugador.size) {
             Handler(Looper.getMainLooper()).postDelayed(
                 {
                     comprobarListas()
                 },
-                2000  )
+                800  )
         }
 
     }
@@ -214,6 +223,7 @@ class MainActivity : AppCompatActivity(), comunicador {
     override fun jugarParteVerde() {
 
         var imagenVerde = findViewById<ImageView>(R.id.parteVerdeColor)
+        var player= MediaPlayer.create(this,R.raw.cuartosonido)
 
 
         imagenVerde.setImageResource(R.drawable.parteverdepulsada)
@@ -226,13 +236,13 @@ class MainActivity : AppCompatActivity(), comunicador {
 
         listaJugador.add(imagenVerde)
 
-
+        player.start()
         if (listaMaquina.size == listaJugador.size) {
             Handler(Looper.getMainLooper()).postDelayed(
                 {
                     comprobarListas()
                 },
-                2000 )
+                800 )
         }
     }
 
@@ -242,6 +252,7 @@ class MainActivity : AppCompatActivity(), comunicador {
 
     override fun jugarParteAzul() {
         var imagenAzul = findViewById<ImageView>(R.id.parteAzulColor)
+        var player= MediaPlayer.create(this,R.raw.tercersonido)
 
         imagenAzul.setImageResource(R.drawable.parteazulpulsada)
 
@@ -253,14 +264,14 @@ class MainActivity : AppCompatActivity(), comunicador {
             500  )
 
             listaJugador.add(imagenAzul)
-
+        player.start()
 
             if (listaMaquina.size == listaJugador.size) {
                 Handler(Looper.getMainLooper()).postDelayed(
                     {
                         comprobarListas()
                     },
-                    2000  )
+                    800  )
             }
     }
 
@@ -270,6 +281,8 @@ class MainActivity : AppCompatActivity(), comunicador {
 
     override fun jugarParteRoja() {
         var imagenRoja = findViewById<ImageView>(R.id.parteRojaColor)
+        var player= MediaPlayer.create(this,R.raw.primersonido)
+
 
         imagenRoja.setImageResource(R.drawable.parterojapulsada)
 
@@ -282,13 +295,18 @@ class MainActivity : AppCompatActivity(), comunicador {
         listaJugador.add(imagenRoja)
 
 
+
+        player.start()
+
+
             if (listaMaquina.size == listaJugador.size) {
                 Handler(Looper.getMainLooper()).postDelayed(
                     {
                         comprobarListas()
                     },
-                    2000  )
+                    800  )
             }
+
     }
 
 
@@ -317,9 +335,9 @@ class MainActivity : AppCompatActivity(), comunicador {
 
         Thread {
             listaMaquina.forEach {
-                Thread.sleep(2000)
+                Thread.sleep(800)
                 iluminarBoton(it)
-                Thread.sleep(2000)
+                Thread.sleep(800)
             }
         }.start()
 

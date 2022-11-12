@@ -1,6 +1,7 @@
 package com.example.simon
 
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.room.Room
@@ -14,12 +15,11 @@ class Login : AppCompatActivity() {
 
     private lateinit var binding : ActivityLoginBinding
     private lateinit var roomDB: SimonDataBase
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-//xd
 
         roomDB = Room.databaseBuilder(
             this.applicationContext,
@@ -27,24 +27,24 @@ class Login : AppCompatActivity() {
             "simonDataBase"
         ).build()
 
-
-
-
         binding.btnLogin.setOnClickListener{
 
-            writeData()
+            escribirDatos()
+            irSimon()
         }
+
+
 
     }
 
-    private fun writeData(){
+    private fun escribirDatos(){
 
         val nombre = binding.etNombre.text.toString()
 
         if (nombre.isNotEmpty()){
 
             val simonJugador= SimonEntity(
-                0 ,nombre,1
+                0 ,nombre,0
             )
 
             GlobalScope.launch(Dispatchers.IO){
@@ -54,4 +54,15 @@ class Login : AppCompatActivity() {
             binding.etNombre.text.clear()
         }
     }
+
+
+    fun irSimon(){
+
+        val cambiarPantalla = Intent(this,MainActivity ::class.java).apply {
+
+        }
+        startActivity(cambiarPantalla)
+    }
+
+
 }

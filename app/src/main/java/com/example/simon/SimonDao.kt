@@ -11,6 +11,9 @@ interface SimonDao {
     @Query("Select * from jugador_Datos where id = :id")
     fun mostrarJugador(id:Int) : SimonEntity
 
+
+
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertJugador(jugador:SimonEntity)
 

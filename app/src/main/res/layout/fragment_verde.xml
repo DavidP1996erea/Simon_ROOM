@@ -35,16 +35,35 @@
         android:layout_height="wrap_content"
         android:text="0 " />
 
-    <Button
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btnGuardar"/>
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="150dp"
+        android:text="Nombre del jugador: "
+        />
 
-    <EditText
-        android:layout_width="wrap_content"
+    <TextView
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="170dp"
+        android:layout_marginTop="150dp"
         android:id="@+id/etnombreJugador"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="100dp"
+        android:text="Nombre del pulsaciones: "
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="190dp"
+        android:layout_marginTop="100dp"
+        android:id="@+id/etnumeroPulsaciones"/>
 
 
 </FrameLayout>

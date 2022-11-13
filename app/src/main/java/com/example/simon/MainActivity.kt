@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity(), comunicador {
 
     }
 
-
+//
     fun mostrarNombre(){
 
         GlobalScope.launch(Dispatchers.IO) {

@@ -8,8 +8,8 @@ interface SimonDao {
     @Query("Select * from jugador_Datos")
     fun mostrarTodosDatos() : List<SimonEntity>
 
-    @Query("Select * from jugador_Datos where id = :id")
-    fun mostrarJugador(id:Int) : SimonEntity
+    @Query("Select * from jugador_Datos where nombreJugador = :nombreJugador")
+    fun mostrarJugador(nombreJugador:String) : SimonEntity
 
 
 

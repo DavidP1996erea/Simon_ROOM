@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity(), comunicador {
 
 
     private lateinit var roomDB: SimonDataBase
+    var nombreUsuario="";
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,30 +36,35 @@ class MainActivity : AppCompatActivity(), comunicador {
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
 
+        nombreUsuario =  intent.getStringExtra("Nombre").toString()
+
         roomDB = Room.databaseBuilder(
             this.applicationContext,
             SimonDataBase::class.java,
             "simonDataBase"
         ).build()
 
-        mostrarNombre()
-
-
 
     }
 
-//
+    override fun onStart() {
+        super.onStart()
+
+
+        mostrarNombre()
+    }
+
+
     fun mostrarNombre(){
 
         GlobalScope.launch(Dispatchers.IO) {
 
-            val jugador = roomDB.SimonDao().mostrarJugador(10)
+            val jugador = roomDB.SimonDao().mostrarJugador(nombreUsuario)
 
             var meterTexto = findViewById<TextView>(R.id.etnombreJugador)
 
 
             meterTexto.text = jugador.nombreJugador
-
 
         }
     }
@@ -68,7 +74,7 @@ class MainActivity : AppCompatActivity(), comunicador {
 
         GlobalScope.launch(Dispatchers.IO) {
 
-            val jugador = roomDB.SimonDao().mostrarJugador(10)
+            val jugador = roomDB.SimonDao().mostrarJugador(nombreUsuario)
 
             jugador.numPulsaciones++
 

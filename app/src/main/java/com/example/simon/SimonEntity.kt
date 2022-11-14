@@ -8,8 +8,7 @@ import androidx.room.PrimaryKey
 
 data class SimonEntity(
 
-    @PrimaryKey(autoGenerate = true)
-    var id: Int=0,
+    @PrimaryKey()
     var nombreJugador:String="",
     var numPulsaciones:Int=0,
 

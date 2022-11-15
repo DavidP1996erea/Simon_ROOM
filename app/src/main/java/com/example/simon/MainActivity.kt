@@ -23,11 +23,19 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.lang.reflect.Array
+import java.sql.Time
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(), comunicador {
 
 
     private lateinit var roomDB: SimonDataBase
+
+    var pulsacionesPorPartida=0;
     var nombreUsuario="";
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,8 +58,10 @@ class MainActivity : AppCompatActivity(), comunicador {
     override fun onStart() {
         super.onStart()
 
-
         mostrarNombre()
+
+
+
     }
 
 
@@ -66,6 +76,9 @@ class MainActivity : AppCompatActivity(), comunicador {
 
             meterTexto.text = jugador.nombreJugador
 
+
+            var puntuacionMaximaJugador = findViewById<TextView>(R.id.etnumeroPulsacionesMaxima)
+            puntuacionMaximaJugador.text=jugador.numPulsaciones.toString()
         }
     }
 
@@ -76,9 +89,14 @@ class MainActivity : AppCompatActivity(), comunicador {
 
             val jugador = roomDB.SimonDao().mostrarJugador(nombreUsuario)
 
-            jugador.numPulsaciones++
+            if(pulsacionesPorPartida>jugador.numPulsaciones){
+                jugador.numPulsaciones=pulsacionesPorPartida
 
-            roomDB.SimonDao().updateJugador(jugador)
+
+                roomDB.SimonDao().updateJugador(jugador)
+            }
+
+
 
         }
     }
@@ -273,7 +291,7 @@ class MainActivity : AppCompatActivity(), comunicador {
                 },
                 800  )
         }
-        updateNumeroPulsacionesJugador()
+        pulsacionesPorPartida++;
 
     }
 
@@ -304,7 +322,7 @@ class MainActivity : AppCompatActivity(), comunicador {
                 },
                 800 )
         }
-        updateNumeroPulsacionesJugador()
+        pulsacionesPorPartida++;
     }
 
     /**
@@ -335,7 +353,7 @@ class MainActivity : AppCompatActivity(), comunicador {
                 800  )
         }
 
-        updateNumeroPulsacionesJugador()
+        pulsacionesPorPartida++;
     }
 
     /**
@@ -370,7 +388,7 @@ class MainActivity : AppCompatActivity(), comunicador {
                 800  )
         }
 
-        updateNumeroPulsacionesJugador()
+        pulsacionesPorPartida++;
 
     }
 
@@ -406,6 +424,8 @@ class MainActivity : AppCompatActivity(), comunicador {
             }
         }.start()
 
+        var puntuacionPartida = findViewById<TextView>(R.id.etnumeroPulsaciones)
+        puntuacionPartida.text=pulsacionesPorPartida.toString();
     }
 
     /**
@@ -449,6 +469,8 @@ class MainActivity : AppCompatActivity(), comunicador {
      */
 
     fun mensajeDerrota(): AlertDialog {
+        updateNumeroPulsacionesJugador()
+
 
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Has perdido...😦😵!")
@@ -456,7 +478,7 @@ class MainActivity : AppCompatActivity(), comunicador {
         builder.setPositiveButton("Aceptar", null)
 
         val mostrarVictoria = builder.create()
-
+        pulsacionesPorPartida=0;
         return mostrarVictoria
     }
 

@@ -10,7 +10,6 @@ import com.example.simon.databinding.ActivityLoginBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlin.collections.contains as contains
 
 
 class Login : AppCompatActivity() {

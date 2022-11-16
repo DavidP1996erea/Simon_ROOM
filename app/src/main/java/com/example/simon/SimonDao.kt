@@ -6,10 +6,10 @@ import androidx.room.*
 interface SimonDao {
 
     @Query("Select * from jugador_Datos")
-    fun mostrarTodosDatos() : List<SimonEntity>
+   suspend fun mostrarTodosDatos() : MutableList<SimonEntity>
 
     @Query("Select * from jugador_Datos where nombreJugador = :nombreJugador")
-    fun mostrarJugador(nombreJugador:String) : SimonEntity
+    suspend fun mostrarJugador(nombreJugador:String) : SimonEntity
 
 
 

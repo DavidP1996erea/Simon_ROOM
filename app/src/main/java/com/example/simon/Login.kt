@@ -4,6 +4,7 @@ package com.example.simon
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.EditText
 import androidx.room.Room
 import com.example.simon.databinding.ActivityLoginBinding
@@ -86,6 +87,16 @@ class Login : AppCompatActivity() {
             cambiarPantalla.putExtra("Nombre", login)
             startActivity(cambiarPantalla)
         }
+
+    }
+
+
+    fun irRanking(view:View){
+
+            val cambiarPantalla = Intent(this,ranking ::class.java)
+
+            startActivity(cambiarPantalla)
+
 
     }
 

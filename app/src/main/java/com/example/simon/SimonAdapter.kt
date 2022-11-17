@@ -25,15 +25,17 @@ class SimonAdapter(
         return listaJugadores.size
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {     // Clase con la vista
-        val tvJugadores = view.findViewById<TextView>(R.id.tvNombreJugadores)         // instancia del Textview de la vista
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val tvJugadores = view.findViewById<TextView>(R.id.tvNombreJugadores)
+        val tvPulsaciones = view.findViewById<TextView>(R.id.tvPulsacionesJugadores)
 
 
-        fun bind(                                   // función que une los elementos en la vista y prepara los listeners
+        fun bind(
             task: SimonEntity
 
         ) {
-            tvJugadores.text = task.nombreJugador
+            tvJugadores.text = "- " + task.nombreJugador
+            tvPulsaciones.text = " Pulsaciones: "+  task.numPulsaciones.toString()
 
         }
     }

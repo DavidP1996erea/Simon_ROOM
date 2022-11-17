@@ -5,7 +5,7 @@ import androidx.room.*
 @Dao
 interface SimonDao {
 
-    @Query("Select * from jugador_Datos")
+    @Query("Select * from jugador_Datos order by  numPulsaciones desc")
    suspend fun mostrarTodosDatos() : MutableList<SimonEntity>
 
     @Query("Select * from jugador_Datos where nombreJugador = :nombreJugador")

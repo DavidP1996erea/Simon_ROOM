@@ -15,7 +15,11 @@ import kotlinx.coroutines.launch
 
 class Login : AppCompatActivity() {
 
+    /* Se crea una variable que servirá para enlazar los elementos del layout
+    para no tener que poner los findBtyId
+     */
     private lateinit var binding : ActivityLoginBinding
+    // Variable que servirá para
     private lateinit var roomDB: SimonDataBase
     var login="";
     override fun onCreate(savedInstanceState: Bundle?) {
